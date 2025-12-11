@@ -447,5 +447,5 @@ const AddPedido = () => {
     </Layout>
   )
 }
-
+// COMENTARIO 
 export default AddPedido
