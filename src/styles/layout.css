@@ -1,7 +1,7 @@
 /* ---------- GENERAL ---------- */
 .layout-header {
   width: 100%;
-  background: #bc3737;
+  background: #022847;
   border-bottom: 1px solid #e6e6e6;
 }
 
@@ -36,7 +36,7 @@
 
 .nav-link {
   font-size: 1rem;
-  color: #9a0a0a;
+  color: white;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -84,7 +84,7 @@
 .layout-footer {
   text-align: center;
   padding: 25px 10px;
-  background: #fafafa;
+  background: #022847;
   border-top: 1px solid #ececec;
   margin-top: 40px;
 }

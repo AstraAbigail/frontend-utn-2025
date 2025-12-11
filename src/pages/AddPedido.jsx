@@ -41,11 +41,17 @@ const AddPedido = () => {
   const handleProductoChange = (e, v) => {
     if (typeof e === "string") e = { target: { name: e, value: v } }
 
+    const { name, value } = e.target
+
     setProductoForm(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: name === "cantidad" || name === "precio"
+        ? Number(value) || 0
+        : value
     }))
-  }  
+  }
+
+
   const agregarProducto = () => {
     if (!productoForm.category || !productoForm.line || !productoForm.model) {
       alert("⚠ Debes seleccionar categoría, línea y modelo")
@@ -53,6 +59,7 @@ const AddPedido = () => {
     }
 
     setProductos(prev => [...prev, productoForm])
+
     setProductoForm({
         cantidad:"",
         category: "",
@@ -63,9 +70,8 @@ const AddPedido = () => {
         mano: "",
         precio:""
     })
-   
-    
   }
+  
   
   const eliminarProducto = (index) => {
     setProductos(prev => prev.filter((_, i) => i !== index))
@@ -82,7 +88,7 @@ const AddPedido = () => {
   }
 
   
-  const productosType = productos.map(p => ({
+    const productosType = productos.map(p => ({
       ...p,
       cantidad: Number(p.cantidad),
       precio: Number(p.precio)
@@ -142,8 +148,7 @@ const AddPedido = () => {
     } catch (err) {
       console.log(err);
       alert("❌ Error de conexión");
-    }
-  }
+    }}
  
   function getMarcosDisponibles(category, line) {
     if (!category || !line) return []
@@ -205,23 +210,18 @@ const AddPedido = () => {
   
   return (
     <Layout>
+      
       <div className="page-banner">Nuevo Pedido</div>
-
-      <section className="page-section">
-
-        
+      <section className="page-section">        
         <div className="addpedido">
           <h2>Datos del Cliente</h2>
-
           <div className="addpedido-cliente-grid">
-
             <InputFieldLogin
               type="number"
               placeholder="N° pedido"
               name="n_pedido"
               onChange={handleClienteChange}
-              value={cliente.n_pedido === null || cliente.n_pedido === "" ? "" : cliente.n_pedido}
-
+              value={cliente.n_pedido}
             />
 
             <InputFieldLogin
@@ -264,15 +264,14 @@ const AddPedido = () => {
        
         <div className="addpedido">
           <h3>Agregar Producto</h3>
-
           <div className="addpedido-producto-grid">
-
             <InputFieldLogin
               type="number"
               placeholder="Cantidad"
               name="cantidad"
               onChange={handleProductoChange}
-              value={productoForm.cantidad || ""}
+              value={productoForm.cantidad}
+              className="input-addpedido"
               
             />
 
@@ -381,7 +380,8 @@ const AddPedido = () => {
               placeholder="Precio total"
               name="precio"
               onChange={handleProductoChange}
-              value={productoForm.precio || ""}
+              value={productoForm.precio}
+              className="input-addpedido"
             />
           </div>
 

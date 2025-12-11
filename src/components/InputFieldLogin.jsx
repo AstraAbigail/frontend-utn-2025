@@ -1,13 +1,11 @@
 import { useState } from "react";
 
-const InputFieldLogin = ({ type, placeholder, name, icon, onChange,onFocus,
-  onBlur }) => {
+const InputFieldLogin = ({ type, placeholder, name, icon, onChange, onFocus, onBlur, className, value })=>{
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePassword = () => setShowPassword(!showPassword);
 
   return (
-    <div className="input-wrapped">
+    <div className={`input-wrapped ${className || ""}`}>
 
       {/* INPUT */}
       <input
@@ -18,6 +16,7 @@ const InputFieldLogin = ({ type, placeholder, name, icon, onChange,onFocus,
         onChange={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        value = { value }
         required
       />
 
@@ -39,7 +38,7 @@ const InputFieldLogin = ({ type, placeholder, name, icon, onChange,onFocus,
       )}
 
     </div>
-  );
-};
+  )
+}
 
 export default InputFieldLogin;

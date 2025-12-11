@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Layout from "../components/Layout"
-import UpdateProduct from "../components/UpdateProduct"
+import UpdatePedido from "../components/UpdatePedido"
 import { useAuth } from "../context/AuthContext"
 import { ToastMessage } from "../components/ToastMessage.jsx"
 import { PUERTAS } from "../constants/puertas.js"
@@ -46,7 +46,7 @@ const Home = () => {
         method: "GET"
       })
       const dataOrders = await response.json()
-      console.log(dataOrders)
+      // console.log(dataOrders)
       setOrders(dataOrders.data.reverse())
       setResponseServer({
         success: true,
@@ -281,8 +281,8 @@ const Home = () => {
 
       {
         selectedOrder &&
-        <UpdateProduct
-          product={selectedOrder}
+        <UpdatePedido
+          pedido={selectedOrder}
           onClose={() => setSelectedOrder(null)}
           onUpdate={fetchingOrders}
         />
