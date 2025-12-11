@@ -1,0 +1,107 @@
+
+.orders-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  padding: 20px;
+}
+
+
+.order-card { 
+  background: #fff;
+  padding: 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.order-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.order-client {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+
+.order-products h4 {
+  margin-bottom: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-item {
+  padding: 8px 10px;
+  background: #f7f7f7;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.product-main {
+  font-weight: 600;
+}
+
+.product-sub {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.product-price {
+  font-size: 0.9rem;
+  color: #222;
+}
+
+
+.order-status {
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+
+.cont-btn {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cont-btn button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.cont-btn button:first-child {
+  background: #022847;
+  color: white;
+}
+
+.cont-btn button:last-child {
+  background: #5c1311;
+  color: white;
+}
+
+.cont-btn button:hover {
+  opacity: 0.85;
+}

@@ -1,0 +1,118 @@
+/* ---------- GENERAL ---------- */
+.layout-header {
+  width: 100%;
+  background: #bc3737;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.layout-nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ---------- LOGO IZQUIERDA ---------- */
+.nav-left {
+  flex: 1;
+}
+
+.nav-logo {
+  height: 45px;        /* Tamaño ideal para un logo rectangular */
+  width: auto;         /* Mantiene proporción */
+  object-fit: contain;
+}
+
+/* ---------- LINKS CENTRO ---------- */
+.nav-right {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+}
+
+.nav-link {
+  font-size: 1rem;
+  color: #9a0a0a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #0573cd;
+}
+
+/* ---------- ICONO INICIO SESIÓN DERECHA ---------- */
+.nav-icon-link {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-user-icon {
+  font-size: 24px;
+  color: #fefefe;
+  transition: color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-user-icon:hover {
+  color: #0573cd;
+  transform: scale(1.5);
+}
+
+/* ---------- BOTÓN LOGOUT ---------- */
+.nav-button-logout {
+  margin-left: 25px;
+  background: transparent;
+  border: none;
+  font-size: 0.95rem;
+  color: #b4aeae;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-button-logout:hover {
+  color:  #0573cd;
+}
+
+/* ---------- FOOTER ---------- */
+.layout-footer {
+  text-align: center;
+  padding: 25px 10px;
+  background: #fafafa;
+  border-top: 1px solid #ececec;
+  margin-top: 40px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #0573cd;
+  font-weight: 600;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- MOBILE RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .layout-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-right {
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .nav-icon-link {
+    margin-left: 0;
+  }
+}

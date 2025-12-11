@@ -1,0 +1,108 @@
+.montserrat{
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.center-auth {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;  
+  font-family: "Montserrat", sans-serif;
+
+}
+
+.form-container {
+  width:400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;  
+  gap: 12px;
+  font-family: "Montserrat", sans-serif;
+ 
+}
+
+
+.form-container select {
+  padding: 10px;
+  width: 70%;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-family: "Montserrat", sans-serif;
+}
+.form-container button {
+  padding: 10px;
+  border: none;
+  background: #333;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 70%;
+  font-family: "Montserrat", sans-serif;
+}
+.input-wrapped {
+  position: relative;
+  width: 70%;
+  font-family: "Montserrat", sans-serif;
+}
+.input-field {
+  width: 100%;
+  padding: 10px 40px;     
+  padding-left: 40px;      
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 22px;
+}
+
+/* Ícono derecho (ojo o lo que sea) */
+.input-icon-right {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 22px;
+}
+.login-enlaces{
+  color:#022847;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+}
+
+.login-enlaces-register{
+  color:#022847;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  
+}
+
+.password-eye {
+ position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 22px;
+
+}
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 22px;
+  display: inline-block;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+}

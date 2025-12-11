@@ -1,0 +1,80 @@
+.addpedido {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+
+.addpedido input,
+.addpedido select {
+  width: 100% !important;
+  height: 42px;
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+
+.addpedido input:hover,
+.addpedido select:hover {
+  border-color: #999;
+}
+
+
+.addpedido input:focus,
+.addpedido select:focus {
+  border-color: #1f6feb;
+  outline: none;
+}
+
+
+.addpedido-cliente-grid,
+.addpedido-producto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px 20px;
+  background: #022847;
+  padding: 22px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+}
+
+
+.addpedido .full-column {
+  grid-column: span 2;
+}
+
+
+.addpedido .btn-agregar-producto {
+  grid-column: span 2;
+  justify-self: center;
+  padding: 10px 25px;
+  background-color: #1f6feb;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.addpedido table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.addpedido th,
+.addpedido td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.addpedido .btn-eliminar {
+  padding: 6px 12px;
+  background: #d9534f;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
