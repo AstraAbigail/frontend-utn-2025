@@ -20,18 +20,16 @@ const Home = () => {
   const [orders, setOrders] = useState([])
   const [selectedOrder, setSelectedOrder] = useState(null)
   const [filters, setFilters] = useState({
-    nPedido:"",
-    name: "",
+    n_pedido:"",
+    nombre: "",
     identification:"",
     category: "",
     line: "",
     model: "",
-    minCant: "",   //0
-    maxCant: "",    //0
-    order_status:""
-  })  
-
-  
+    minCant: "",   
+    maxCant: "",    
+    estado:""
+  })   
  
   
   const [responseServer, setResponseServer] = useState(initialErrorState)
@@ -42,11 +40,14 @@ const Home = () => {
   const fetchingOrders = async (query = "") => {
     setResponseServer(initialErrorState)
     try {
+      // const response = await fetch(`http://localhost:3000/pedidos?${query}`, {
+      //   method: "GET"
+      // })
       const response = await fetch(`http://localhost:3000/pedidos?${query}`, {
         method: "GET"
       })
       const dataOrders = await response.json()
-      // console.log(dataOrders)
+       console.log(dataOrders,"manda el api")
       setOrders(dataOrders.data.reverse())
       setResponseServer({
         success: true,
@@ -72,8 +73,6 @@ const Home = () => {
     fetchingOrders()
   }, [])
 
-  //comentario para git, porque no me esta guardando 
-  
   const deleteOrder = async (idOrder) => {
     if (!confirm("¿Esta seguro de que quieres borrar el pedido?")) {
       return
@@ -116,18 +115,20 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const query = new URLSearchParams()
-
+    console.log(query,"query")
     Object.entries(filters).forEach(([key, val]) => {
       if (val) query.append(key, val)
     });
-    console.log(filters)
+    const queryString = query.toString();
+    console.log(queryString, " <-- Query String Final");
+    
     fetchingOrders(query.toString())
   }
 
   const handleResetFilters = () => {
     setFilters({
-      nPedido:"",
-      name: "",
+      n_pedido:"",
+      noimbre: "",
       identification:"", //0
       category: "",
       line: "",
@@ -136,6 +137,8 @@ const Home = () => {
       maxCant: "",    //0
       estado:""
     })
+
+    fetchingOrders()
    
   }
   
@@ -154,17 +157,17 @@ const Home = () => {
         <form className="filters-form" onSubmit={handleSubmit}>          
           <input
             type="text"
-            name="nPedido"
+            name="n_pedido"
             placeholder="N° pedido"
-            value={filters.nPedido}
-            onChange={e => handleChange("nPedido", e.target.value)}
+            value={filters.n_pedido}
+            onChange={e => handleChange("n_pedido", e.target.value)}
           />          
           <input
             type="text"
-            name="name"
+            name="nombre"
             placeholder="Nombre cliente"
-            value={filters.name}
-            onChange={e => handleChange("name", e.target.value)}
+            value={filters.nombre}
+            onChange={e => handleChange("nombre", e.target.value)}
           />         
           <input
             type="number"
@@ -261,8 +264,8 @@ const Home = () => {
 
           {/* Estado */}
           <select
-            value={filters.order_status}
-            onChange={e => handleChange("order_status", e.target.value)}
+            value={filters.estado}
+            onChange={e => handleChange("estado", e.target.value)}
           >
             <option value="">Seleccionar estado</option>
             {ORDEN_ESTADOS.map(s => (

@@ -102,22 +102,12 @@ const DetalleEdicionProductoUnico = ({
         category: productoUpdateForm.category,
         line: productoUpdateForm.line,
         model:productoUpdateForm.model,
-        marco: productoUpdateForm.marco,
         color: productoUpdateForm.color,
         mano: productoUpdateForm.mano,
         precio: Number(productoUpdateForm.precio),
+        ...(productoUpdateForm.category !== "Exterior" && { marco: productoUpdateForm.marco }),
       },
       estado: productoUpdateForm.estado,
-
-
-
-      // ...productoUpdateForm,
-      // precio: Number(productoUpdateForm.precio),
-      // cantidad: Number(productoUpdateForm.cantidad),
-      
-      // Nota: Aquí estás enviando los datos del producto como si fueran campos del pedido.
-      // Si tu API necesita recibir la edición del producto anidado, deberás ajustar 
-      // `dataToUpdate` para que coincida con lo que espera el endpoint PATCH.
     }
         
     try {
@@ -179,10 +169,11 @@ const DetalleEdicionProductoUnico = ({
                             name="category"
                             value={productoUpdateForm.category}
                             onChange={e => {
-                                handleProductoChange("category", e.target.value)
-                                handleProductoChange("line", "")
-                                handleProductoChange("model", "")
-                            }}
+                              handleProductoChange("category", e.target.value)
+                              handleProductoChange("line", "")
+                              handleProductoChange("model", "")
+                              if (value === "Exterior") { handleProductoChange("marco", "") }
+                        }}
                         >
                             <option value="">Categoría</option>
                             <option value="Interior">Interior</option>

@@ -3,119 +3,137 @@ import { useNavigate } from "react-router-dom"
 import Layout from "../components/Layout"
 import InputFieldLogin from "../components/InputFieldLogin"
 import "../styles/rulesPassword.css"
+import { useForm } from "react-hook-form"
+import "../styles/login.css"
 
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username:"",
-    email: "",
-    password: ""
-  })
-
-  //para las reglas
-  const [passwordRules, setPasswordRules] = useState({
-    length: false,
-    uppercase: false,
-    lowercase: false,
-    number: false,
-    special: false,
-    noSpaces: false
-  })
-  const [showPasswordRules, setShowPasswordRules] = useState(false)
-  
 
   const navigate = useNavigate()
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-    // Si es la contraseña → actualizar reglas dinámicas
-    if (e.target.name === "password") {
-      setPasswordRules(validatePasswordRules(e.target.value))
-    }
-   
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      
-      const response = await fetch("http://localhost:3000/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      })
-      
-      const responseData = await response.json()
-
-      if (!responseData.success) {
-        alert(responseData.error)
-      }
-      
-      alert(`✅ Usuario creado con éxito: ${responseData.data._id}`)
-      navigate("/login")
-    } catch (error) {
-      console.log("Error al registrar el usuario", error)
-    }
-  }
-  // Reglas password
-  const validatePasswordRules = (password) => {
-    return {
-      length: password.length >= 8,
-      uppercase: /[A-Z]/.test(password),
-      lowercase: /[a-z]/.test(password),
-      number: /[0-9]/.test(password),
-      special: /[^A-Za-z0-9]/.test(password),
-      noSpaces: !/\s/.test(password)
-    }
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset
+  } = useForm({ mode: "onChange" })
   
 
+  /*Actualiza automáticamente cuando el valor del campo cambia: no necesitas hacer setState para actualizar los valores.*/
+  const passwordValue = watch("password", "")
 
+  // reglas dínamicas
+  const passwordRules = {
+    length: passwordValue.length >= 8,
+    uppercase: /[A-Z]/.test(passwordValue),
+    lowercase: /[a-z]/.test(passwordValue),
+    number: /[0-9]/.test(passwordValue),
+    noSpaces: !/\s/.test(passwordValue),
+  }
+  
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!result.success) {
+        alert(result.error)
+        return
+      }
+
+      alert(`✅ Usuario creado con éxito: ${result.data._id}`)
+      navigate("/login")
+    } catch (error) {
+      console.log("Error al registrar:", error)
+    }
+
+    reset()
+  }
+ 
+  
   return (
     <Layout>
       <div className="center-auth">
-        <form className="form-container" onSubmit={handleSubmit}>
+        <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
           <h3>Crear Cuenta</h3>
-
-          <InputFieldLogin
-            type="text"
-            placeholder="Username"
-            icon="person"
-            name="username"
-            onChange={handleChange}            
-          />
-          <InputFieldLogin
-            type="email"
-            placeholder="Email"
-            icon="mail"
-            name="email"
-            onChange={handleChange}            
-          />
-          <InputFieldLogin
-            type="password"
-            placeholder="Password"
-            icon="lock"
-            name="password"
-            onChange={handleChange} 
-            onFocus={() => setShowPasswordRules(true)}
-            onBlur={() => setShowPasswordRules(false)}
-          />
-
+          <div className="field-group">
+            <InputFieldLogin
+              type="text"
+              placeholder="Username"
+              icon="person"
+              error={ errors.username}
+              {...register("username", {
+                required: "Campo obligatorio",
+                minLength: {
+                  value: 4,
+                  message: "Mínimo 4 caracteres"
+                },
+                pattern:{
+                  value:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]+$/,
+                  message:"Debe tener mínimo una letra y un número"
+                }
+              })}          
+            />
+            {errors.username && (<p className="error-msg">{errors.username.message}</p>)}
+          </div>
+          
+          <div className="field-group">
+            <InputFieldLogin
+                type="email"
+                placeholder="Email"
+                icon="mail"
+                error={ errors.email}
+                {...register("email", {
+                  required: "Campo obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Ingrese un email válido"
+                  }
+                })}          
+              />
+            {errors.email && (<p className="error-msg ">{errors.email.message}</p>)}
+          </div>
+      
+            <div className="field-group">      
+              <InputFieldLogin
+                type="password"
+                placeholder="Password"
+                icon="lock"
+                error={ errors.password}
+                {...register("password", {
+                  required: "Campo obligatorio",
+                  minLength: {
+                    value: 8,
+                    message: "Mínimo 8 caracteres"
+                  },
+                  validate: {
+                    hasNumber: (v) =>
+                      /[0-9]/.test(v) || "Debe contener un número",
+                    hasUpper: (v) =>
+                      /[A-Z]/.test(v) || "Debe contener mayúscula",
+                    hasLower: (v) =>
+                      /[a-z]/.test(v) || "Debe contener minúscula",
+                    noSpaces: (v) =>
+                      !/\s/.test(v) || "No puede tener espacios"
+                  }
+                })}
+              />          
+          </div>
           {/* LISTA DE VALIDACIONES */}
-          {showPasswordRules && (
-            <ul className="password-rules">
+          { <ul className="password-rules">
               <Rule ok={passwordRules.length} text="Mínimo 8 caracteres" />
               <Rule ok={passwordRules.uppercase} text="Una letra mayúscula" />
               <Rule ok={passwordRules.lowercase} text="Una letra minúscula" />
               <Rule ok={passwordRules.number} text="Un número" />              
               <Rule ok={passwordRules.noSpaces} text="Sin espacios" />
             </ul>
-          )}
+          }
 
           <button type="submit">Registrarse</button>
         </form>

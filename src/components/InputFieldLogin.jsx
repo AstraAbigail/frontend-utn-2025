@@ -1,44 +1,54 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react"
 
-const InputFieldLogin = ({ type, placeholder, name, icon, onChange, onFocus, onBlur, className, value })=>{
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePassword = () => setShowPassword(!showPassword);
+const InputFieldLogin = forwardRef(
+  (
+    {
+      icon,
+      error,
+      type = "text",
+      className = "",
+      ...rest
+    },
+    ref
+  ) => {
+    const [showPassword, setShowPassword] = useState(false)
 
-  return (
-    <div className={`input-wrapped ${className || ""}`}>
+    const inputType =
+      type === "password"
+        ? showPassword
+          ? "text"
+          : "password"
+        : type
 
-      {/* INPUT */}
-      <input
-        className="input-field"
-        type={type === "password" ? (showPassword ? "text" : "password") : type}
-        placeholder={placeholder}
-        name={name}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        value = { value }
-        required
-      />
+    return (
+      <div className="input-wrapped">
+        {/* INPUT */}
+        <input
+          ref={ref}
+          type={inputType}
+          className={`input-field ${error ? "input-error" : ""} ${className}`}
+          {...rest}
+        />
 
-      {/* ÍCONO IZQUIERDO */}
-      {icon && (
-        <span className="material-symbols-outlined input-icon-left">
-          {icon}
-        </span>
-      )}
+        {/* ÍCONO IZQUIERDO */}
+        {icon && (
+          <span className="material-symbols-outlined input-icon-left">
+            {icon}
+          </span>
+        )}
 
-      {/* OJO A LA DERECHA SOLO SI ES PASSWORD */}
-      {type === "password" && (
-        <span
-          className="material-symbols-outlined input-icon-right"
-          onClick={togglePassword}
-        >
-          {showPassword ? "visibility_off" : "visibility"}
-        </span>
-      )}
+        {/* OJO SOLO SI ES PASSWORD */}
+        {type === "password" && (
+          <span
+            className="material-symbols-outlined input-icon-right"
+            onClick={() => setShowPassword(prev => !prev)}
+          >
+            {showPassword ? "visibility_off" : "visibility"}
+          </span>
+        )}
+      </div>
+    )
+  }
+)
 
-    </div>
-  )
-}
-
-export default InputFieldLogin;
+export default InputFieldLogin

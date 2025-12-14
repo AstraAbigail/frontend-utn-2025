@@ -17,7 +17,7 @@
   margin: auto;
   display: flex;
   flex-direction: column;  
-  gap: 12px;
+  gap: 30px;
   font-family: "Montserrat", sans-serif;
  
 }
@@ -105,4 +105,26 @@
   text-transform: none;
   white-space: nowrap;
   direction: ltr;
+}
+
+/* .input-error {
+  border: 2px solid #ff4d4d !important;
+  background-color: #ffe6e6;
+} */
+
+/*error*/
+.field-group {
+  position:relative
+}
+
+/*error*/
+.error-msg {
+  position:absolute;
+  bottom:-32px;
+  left:4px;
+  color: red;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  grid-column: span 2; /* para que se ubique bien en el grid */
 }
