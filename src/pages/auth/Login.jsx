@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom"
-import Layout from "../components/Layout"
-import { useAuth } from "../context/AuthContext"
-import "../styles/login.css"
-import icon from "../assets/lock.png"
-import InputFieldLogin from "../components/InputFieldLogin"
+import Layout from "../../components/Layout"
+import { useAuth } from "../../context/AuthContext"
+import "../../styles/login.css"
+import icon from "../../assets/lock.png"
+import InputFieldLogin from "../../components/InputFieldLogin"
 import { Link } from "react-router-dom"
 import { useForm} from "react-hook-form"
 
@@ -105,7 +105,9 @@ const Login = () => {
             {errors.password && (<p className="error-msg ">{errors.password.message}</p>)}
           </div>
           
-          <a className="login-enlaces" href="#">¿Olvidaste la contraseña?</a>
+         <Link to="/forgot-password" className="login-enlaces">
+              ¿Olvidaste la contraseña?
+        </Link>
           <button type="submit">Ingresar</button>                     
           <p>
             <Link className="login-enlaces-register" to="/registro">

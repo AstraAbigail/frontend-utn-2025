@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import Layout from "../components/Layout"
-import InputFieldLogin from "../components/InputFieldLogin"
-import "../styles/rulesPassword.css"
+import Layout from "../../components/Layout"
+import InputFieldLogin from "../../components/InputFieldLogin"
+import "../../styles/rulesPassword.css"
 import { useForm } from "react-hook-form"
-import "../styles/login.css"
+import "../../styles/login.css"
 
 
 const Register = () => {
