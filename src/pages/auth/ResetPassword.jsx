@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
   const passwordValue = watch("password", "")
 
-  // 🔐 reglas SOLO para el primer input
+  // reglas 1 input
   const passwordRules = {
     length: passwordValue.length >= 8,
     uppercase: /[A-Z]/.test(passwordValue),
@@ -30,7 +30,17 @@ const ResetPassword = () => {
   }
 
   const onSubmit = async (data) => {
-    const response = await fetch("http://localhost:3000/auth/reset-password", {
+    // const response = await fetch("http://localhost:3000/auth/reset-password", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     email,
+    //     otp,
+    //     password: data.password
+    //   })
+    // })
+
+    const response = await fetch("https://backend-utn-2025.onrender.com/auth/reset-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -43,11 +53,11 @@ const ResetPassword = () => {
     const result = await response.json()
 
     if (!result.success) {
-      alert(result.error || "Error al cambiar contraseña")
+      alert(result.error || "❗ Error al cambiar contraseña")
       return
     }
 
-    alert("Contraseña actualizada correctamente")
+    alert("✅ Contraseña actualizada correctamente")
     navigate("/login")
   }
 
@@ -64,7 +74,7 @@ const ResetPassword = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         <h3>Restablecer contraseña</h3>
 
-        {/* NUEVA CONTRASEÑA */}
+        
         <div className="field-group">
           <InputFieldLogin
             type="password"
@@ -90,11 +100,9 @@ const ResetPassword = () => {
           {errors.password && (
             <p className="error-msg">{errors.password.message}</p>
           )}
-        </div>
+        </div>     
 
         
-
-        {/* CONFIRMAR CONTRASEÑA */}
         <div className="field-group">
           <InputFieldLogin
             type="password"
@@ -109,7 +117,7 @@ const ResetPassword = () => {
             <p className="error-msg">{errors.confirmPassword.message}</p>
           )}
         </div>
-        {/* REGLAS VISUALES */}
+       
         <ul className="password-rules">
           <Rule ok={passwordRules.length} text="Mínimo 8 caracteres" />
           <Rule ok={passwordRules.uppercase} text="Una letra mayúscula" />

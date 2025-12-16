@@ -113,7 +113,16 @@ const DetalleEdicionProductoUnico = ({
     try {
       setLoader(true)
       console.log()
-       const res = await fetch(`http://localhost:3000/pedidos/${pedidoId}`, {
+      //  const res = await fetch(`http://localhost:3000/pedidos/${pedidoId}`, {
+      //     method: "PATCH",
+      //     headers: {
+      //         "Content-Type": "application/json",
+      //         "Authorization": `Bearer ${token}`
+      //     },
+      //     body: JSON.stringify(dataToUpdate)
+      // })
+
+      const res = await fetch(`https://backend-utn-2025.onrender.com/pedidos/${pedidoId}`, {
           method: "PATCH",
           headers: {
               "Content-Type": "application/json",
@@ -122,11 +131,11 @@ const DetalleEdicionProductoUnico = ({
           body: JSON.stringify(dataToUpdate)
       })
 
-      if (!res.ok) {         
-        alert("❌ Error al actualizar el pedido")        
-        return
-      }
+
+      if (!res.ok) { return alert("❌ Error al actualizar el pedido") }
+      
       const updatedPedido = await res.json();
+      
       if (onProductUpdatedLocally) {
         //varios producto
         const productosActualizados = updatedPedido.data?.productos || updatedPedido.productos;
@@ -141,7 +150,7 @@ const DetalleEdicionProductoUnico = ({
       onUpdate()
       onClose()  
     } catch (error) {
-        console.log("Error al actualizar el pedido :(", error)
+       alert("❌ Error al actualizar el pedido , error")        
     } finally {
         setLoader(false)
     }

@@ -20,8 +20,7 @@ const TablaEdicionMultiple = ({ pedido, onClose, onUpdate }) => {
   const handleCloseDetalle = () => {
     setProductoAEditar(null)
   }
-  const handleProductoGuardadoLocal = (indice, productoActualizado) => {
-    
+  const handleProductoGuardadoLocal = (indice, productoActualizado) => {    
     setProductosLocal(prevProductos => {
       return prevProductos.map((producto, i) => 
          i === indice ? productoActualizado : producto

@@ -20,28 +20,32 @@ const Login = () => {
     reset
   }=useForm({mode:"onChange"})
 
-  const onSubmit = async (data) => {
-    console.log("DATA QUE LLEGA DEL FORM:", data)
+  const onSubmit = async (data) => {   
    
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
+      // const response = await fetch("http://localhost:3000/auth/login", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify(data)
+      // })
+      const response = await fetch("https://backend-utn-2025.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
       })
+
       const responseData = await response.json()
 
-      if (responseData.error) {
-        alert(responseData.error)
-        return
-      }
+      if (responseData.error) { return alert(responseData.error)}
       
       login(responseData.token)
       navigateUser("/")
     } catch (error) {
-      console.log(error)
+       alert("❌ Error al registrar:", error)
     }    
     reset()
   }

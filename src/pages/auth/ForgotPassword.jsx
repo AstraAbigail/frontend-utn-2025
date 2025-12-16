@@ -14,14 +14,23 @@ const ForgotPassword = () => {
   } = useForm()
 
 
+  // const onSubmit = async (data) => {
+  //   await fetch("http://localhost:3000/auth/forgot-password", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify(data)
+  //   })
+  //   navigate(`/verify-otp?email=${data.email}`)
+
+  // }
   const onSubmit = async (data) => {
-    await fetch("http://localhost:3000/auth/forgot-password", {
+    await fetch("https://backend-utn-2025.onrender.com/auth/forgot-password", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
     })
-    navigate(`/verify-otp?email=${data.email}`)
 
+    navigate(`/verify-otp?email=${data.email}`)
   }
 
 

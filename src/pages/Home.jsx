@@ -43,15 +43,17 @@ const Home = () => {
       // const response = await fetch(`http://localhost:3000/pedidos?${query}`, {
       //   method: "GET"
       // })
-      const response = await fetch(`http://localhost:3000/pedidos?${query}`, {
+
+      const response = await fetch(`https://backend-utn-2025.onrender.com/pedidos?${query}`, {
         method: "GET"
       })
+
       const dataOrders = await response.json()
        console.log(dataOrders,"manda el api")
       setOrders(dataOrders.data.reverse())
       setResponseServer({
         success: true,
-        notification: "Exito al cargar los pedidos",
+        notification: " ✅ Exito al cargar los pedidos",
         error: {
           ...responseServer.error,
           fetch: true
@@ -60,7 +62,7 @@ const Home = () => {
     } catch (e) {
       setResponseServer({
         success: false,
-        notification: "Error al traer los datos",
+        notification: " ❌ Error al traer los datos",
         error: {
           ...responseServer.error,
           fetch: false
@@ -79,7 +81,14 @@ const Home = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/pedidos/${idOrder}`, {
+      // const response = await fetch(`http://localhost:3000/pedidos/${idOrder}`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Authorization": `Bearer ${token}`
+      //   }
+      // })
+
+      const response = await fetch(`https://backend-utn-2025.onrender.com/pedidos/${idOrder}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${token}`
@@ -87,14 +96,11 @@ const Home = () => {
       })
       const dataResponse = await response.json()
 
-      if (dataResponse.error) {
-        alert(dataResponse.error)
-        return
-      }
+      if (dataResponse.error) { return alert(dataResponse.error)}
 
       setOrders(orders.filter((p) => p._id !== idOrder))
       
-      alert(`Pedido N°: ${dataResponse.data.n_pedido}, borrado con éxito.`)
+      alert(`📃 Pedido N°: ${dataResponse.data.n_pedido}, borrado con éxito.`)
     } catch (error) {
       // setResponseServer({ ...error, delete: "Error al borrar el producto." })
     }
@@ -115,12 +121,11 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const query = new URLSearchParams()
-    console.log(query,"query")
+    
     Object.entries(filters).forEach(([key, val]) => {
       if (val) query.append(key, val)
     });
-    const queryString = query.toString();
-    console.log(queryString, " <-- Query String Final");
+    const queryString = query.toString();    
     
     fetchingOrders(query.toString())
   }
@@ -178,8 +183,7 @@ const Home = () => {
           />
 
           {/* Categoría */}
-          <select
-            
+          <select            
             value={filters.category}
             onChange={e => {
               console.log("category change:", e.target.value);

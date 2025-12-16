@@ -34,7 +34,12 @@ const Register = () => {
   
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://localhost:3000/auth/register", {
+      // const response = await fetch("http://localhost:3000/auth/register", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(data),
+      // })
+      const response = await fetch("https://backend-utn-2025.onrender.com/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -42,15 +47,12 @@ const Register = () => {
 
       const result = await response.json()
 
-      if (!result.success) {
-        alert(result.error)
-        return
-      }
+      if (!result.success) { return alert(result.error)}
 
       alert(`✅ Usuario creado con éxito: ${result.data._id}`)
       navigate("/login")
     } catch (error) {
-      console.log("Error al registrar:", error)
+      alert("❌ Error al registrar:", error)
     }
 
     reset()
