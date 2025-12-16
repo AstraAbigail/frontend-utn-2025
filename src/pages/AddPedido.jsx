@@ -79,9 +79,7 @@ const AddPedido = () => {
     setProductos(prev => prev.filter((_, i) => i !== index))
   }
   const onSubmit = async (data) => {
-    if (productos.length === 0) {
-      return alert("Debes agregar al menos un producto")
-    }
+    if (productos.length === 0) {return alert("Debes agregar al menos un producto")}
 
 
     const pedidoAEnviar = {
@@ -101,7 +99,16 @@ const AddPedido = () => {
 
 
     try {
-      const res = await fetch("http://localhost:3000/pedidos", {
+      // const res = await fetch("http://localhost:3000/pedidos", {
+      // method: "POST",
+      // headers: {
+      // "Content-Type": "application/json",
+      // "Authorization": `Bearer ${token}`
+      // },
+      // body: JSON.stringify(pedidoAEnviar)
+      // })
+
+      const res = await fetch("https://backend-utn-2025.onrender.com/pedidos", {
       method: "POST",
       headers: {
       "Content-Type": "application/json",
