@@ -25,7 +25,7 @@ const RouterApp = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/contacto" element={<Contact />} />
+        {/* <Route path="/contacto" element={<Contact />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

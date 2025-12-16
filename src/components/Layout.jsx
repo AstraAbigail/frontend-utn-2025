@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
           <div className="nav-right">
             <Link to="/" className="nav-link">Pedidos</Link>
             <Link to="/nosotros" className="nav-link">Nosotros</Link>
-            <Link to="/contacto" className="nav-link">Contactanos</Link>
+            {/* <Link to="/contacto" className="nav-link">Contactanos</Link> */}
 
             {!user ? (
               <Link to="/login" className="nav-icon-link">

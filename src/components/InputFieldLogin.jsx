@@ -1,12 +1,13 @@
 import { useState, forwardRef } from "react"
 
 const InputFieldLogin = forwardRef(
-  (
-    {
+  ({
       icon,
       error,
       type = "text",
       className = "",
+      onFocus,
+      onBlur,
       ...rest
     },
     ref
@@ -25,9 +26,19 @@ const InputFieldLogin = forwardRef(
         {/* INPUT */}
         <input
           ref={ref}
+          {...rest}
           type={inputType}
           className={`input-field ${error ? "input-error" : ""} ${className}`}
-          {...rest}
+          onFocus={(e) => {
+            rest.onFocus?.(e)
+          }}
+          onBlur={(e) => {
+            rest.onBlur?.(e)
+          }}
+          onChange={(e) => {
+            rest.onChange?.(e)
+          }}
+         
         />
 
         {/* ÍCONO IZQUIERDO */}

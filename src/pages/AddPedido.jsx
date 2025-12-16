@@ -32,15 +32,17 @@ const AddPedido = () => {
   const { token } = useAuth()
   const navigate = useNavigate()
  
-  const handleProductoChange = (e, v) => {
+  const handleProductoChange = (e) => {
    const { name, value } = e.target
 
-
-    const parsed = (name === "cantidad" || name === "precio")
-    ? Number(v) || ""
+  const parsed = name === "cantidad" || name === "precio"
+    ? value === "" ? "" : Number(value)
     : value
 
-    setProductoForm(prev => ({ ...prev, [name]: parsed }))
+  setProductoForm(prev => ({
+    ...prev,
+    [name]: parsed
+  }))
   }
 
 
@@ -227,7 +229,7 @@ const AddPedido = () => {
 
               <div className="field-group">
                 <InputFieldLogin
-                    type="text"
+                  type="text"
                   placeholder="Domicilio y N°"
                   {...register("domicilio", {
                   required: "Campo obligatorio",
@@ -278,13 +280,52 @@ const AddPedido = () => {
                 ))}
               </select>
 
-              <select name="model" value={productoForm.model} onChange={handleProductoChange}>
+              {/* <select name="model" value={productoForm.model} onChange={handleProductoChange}>
                 <option value="">Seleccionar Modelo</option>
                 {productoForm.line &&
                 Object.keys(PUERTAS[productoForm.category].Lineas[productoForm.line].modelos || {}).map(m => (
                 <option key={m} value={m}>{m}</option>
                 ))}
+              </select> */}
+
+              <select
+                name="model"
+                value={productoForm.model}
+                onChange={handleProductoChange}
+                disabled={!productoForm.line}
+              >
+                <option value="">Seleccionar Modelo</option>
+
+                {(() => {
+                  const modelos =
+                    PUERTAS[productoForm.category]
+                      ?.Lineas[productoForm.line]
+                      ?.modelos
+
+                  if (!modelos) return null
+
+                  //ARRAY
+                  if (Array.isArray(modelos)) {
+                    return modelos.map(m => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))
+                  }
+
+                  //OBJETO
+                  if (typeof modelos === "object") {
+                    return Object.keys(modelos).map(m => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))
+                  }
+
+                  return null
+                })()}
               </select>
+
 
               {/* MARCO */}
               <select

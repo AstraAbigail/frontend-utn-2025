@@ -20,6 +20,7 @@ const ResetPassword = () => {
 
   const passwordValue = watch("password", "")
 
+  // 🔐 reglas SOLO para el primer input
   const passwordRules = {
     length: passwordValue.length >= 8,
     uppercase: /[A-Z]/.test(passwordValue),
@@ -50,7 +51,6 @@ const ResetPassword = () => {
     navigate("/login")
   }
 
-  // 🚫 acceso inválido
   if (!email || !otp) {
     return (
       <Layout>
@@ -64,6 +64,7 @@ const ResetPassword = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="form-container">
         <h3>Restablecer contraseña</h3>
 
+        {/* NUEVA CONTRASEÑA */}
         <div className="field-group">
           <InputFieldLogin
             type="password"
@@ -75,42 +76,46 @@ const ResetPassword = () => {
                 message: "Mínimo 8 caracteres"
               },
               validate: {
-                  hasNumber: v =>
-                    /[0-9]/.test(v) || "Debe contener un número",
-                  hasUpper: v =>
-                    /[A-Z]/.test(v) || "Debe contener mayúscula",
-                  hasLower: v =>
-                    /[a-z]/.test(v) || "Debe contener minúscula",
-                  noSpaces: v =>
-                    !/\s/.test(v) || "No puede tener espacios"
+                hasNumber: v =>
+                  /[0-9]/.test(v) || "Debe contener un número",
+                hasUpper: v =>
+                  /[A-Z]/.test(v) || "Debe contener mayúscula",
+                hasLower: v =>
+                  /[a-z]/.test(v) || "Debe contener minúscula",
+                noSpaces: v =>
+                  !/\s/.test(v) || "No puede tener espacios"
               }
             })}
           />
           {errors.password && (
             <p className="error-msg">{errors.password.message}</p>
-            )}
-        </div>
-
-        <div className="field-group">
-          <InputFieldLogin
-          type="password"
-          placeholder="Repetir contraseña"
-          {...register("confirmPassword", {
-            validate: value =>
-              value === watch("password") || "Las contraseñas no coinciden"
-          })}
-        />
-        {errors.confirmPassword && (
-          <p className="error-msg">{errors.confirmPassword.message}</p>
           )}
         </div>
+
         
+
+        {/* CONFIRMAR CONTRASEÑA */}
+        <div className="field-group">
+          <InputFieldLogin
+            type="password"
+            placeholder="Repetir contraseña"
+            {...register("confirmPassword", {
+              required: "Confirmá la contraseña",
+              validate: value =>
+                value === passwordValue || "Las contraseñas no coinciden"
+            })}
+          />
+          {errors.confirmPassword && (
+            <p className="error-msg">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+        {/* REGLAS VISUALES */}
         <ul className="password-rules">
-            <Rule ok={passwordRules.length} text="Mínimo 8 caracteres" />
-            <Rule ok={passwordRules.uppercase} text="Una letra mayúscula" />
-            <Rule ok={passwordRules.lowercase} text="Una letra minúscula" />
-            <Rule ok={passwordRules.number} text="Un número" />
-            <Rule ok={passwordRules.noSpaces} text="Sin espacios" />
+          <Rule ok={passwordRules.length} text="Mínimo 8 caracteres" />
+          <Rule ok={passwordRules.uppercase} text="Una letra mayúscula" />
+          <Rule ok={passwordRules.lowercase} text="Una letra minúscula" />
+          <Rule ok={passwordRules.number} text="Un número" />
+          <Rule ok={passwordRules.noSpaces} text="Sin espacios" />
         </ul>
 
         <button type="submit">Cambiar contraseña</button>
