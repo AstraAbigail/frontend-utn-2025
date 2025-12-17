@@ -22,7 +22,7 @@ const Home = () => {
   const [filters, setFilters] = useState({
     n_pedido:"",
     nombre: "",
-    identification:"",
+    identificacion:"",
     category: "",
     line: "",
     model: "",
@@ -133,8 +133,8 @@ const Home = () => {
   const handleResetFilters = () => {
     setFilters({
       n_pedido:"",
-      noimbre: "",
-      identification:"", //0
+      nombre: "",
+      identificacion:"", //0
       category: "",
       line: "",
       model: "",
@@ -176,10 +176,10 @@ const Home = () => {
           />         
           <input
             type="text"
-            name="identification"
+            name="identificacion"
             placeholder="Identificación - DNI / CUIT"
-            value={filters.identification}
-            onChange={e => handleChange("identification", e.target.value)}
+            value={filters.identificacion}
+            onChange={e => handleChange("identificacion", e.target.value)}
           />
 
           {/* Categoría */}
