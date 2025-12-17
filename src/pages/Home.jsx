@@ -175,7 +175,7 @@ const Home = () => {
             onChange={e => handleChange("nombre", e.target.value)}
           />         
           <input
-            type="number"
+            type="text"
             name="identification"
             placeholder="Identificación - DNI / CUIT"
             value={filters.identification}
